@@ -1,0 +1,2 @@
+include:
+  - monitoring.logs.beaver
