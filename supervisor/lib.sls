@@ -12,7 +12,8 @@ include:
                    numprocs=1,
                    log_dir=None,
                    working_dir=None,
-                   supervise=False) %}
+                   supervise=False,
+                   logship=False) %}
 
 # user supervise flag when service is deployed through salt (i.e. generic service), no separate deploy step
 
@@ -55,11 +56,16 @@ supervise-{{appslug}}:
     - conf_file: /etc/supervisord.conf
 {% endif %}
 
+{% if logship %}
+{% from 'logging/lib.sls' import logship with context %}
+{{ logship(appslug+'-supervisor.out', log_dir+'/'+appslug+'-supervisor.out', 'supervisor', ['supervisor', appslug, 'out'], 'json') }}
+{{ logship(appslug+'-supervisor.err', log_dir+'/'+appslug+'-supervisor.err', 'supervisor', ['supervisor', appslug, 'err'], 'json') }}
+{% endif %}
 
 {% endmacro %}
 
 
-{% macro supervise_unicorn(appslug, working_dir) -%}
+{% macro supervise_unicorn(appslug, working_dir, logship=False) -%}
 
 /var/run/{{appslug}}:
   file:
@@ -74,7 +80,8 @@ supervise-{{appslug}}:
 {{ supervise(appslug,
              cmd="/usr/local/bin/bundle",
              args="exec unicorn -E production -o unix:///var/run/" + appslug + "/" + appslug + ".sock",
-             working_dir=working_dir) }}
+             working_dir=working_dir,
+             logship=logship) }}
 
 {%- endmacro %}
 
@@ -85,6 +92,7 @@ supervise-{{appslug}}:
 {{ supervise(appslug,
              cmd="java",
              args="-Dcom.sun.xml.internal.ws.transport.http.HttpAdapter.dump=true -jar " + appslug + ".jar",
-             working_dir="/srv/" + appslug) }}
+             working_dir="/srv/" + appslug,
+             logship=logship) }}
 
 {%- endmacro %}
