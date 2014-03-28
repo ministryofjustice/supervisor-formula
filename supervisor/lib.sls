@@ -57,7 +57,7 @@ supervise-{{appslug}}:
 {% endif %}
 
 {% if logship %}
-{% from 'logging/lib.sls' import logship with context %}
+{% from "logstash/lib.sls" import logship with context %}
 {{ logship(appslug+'-supervisor.out', log_dir+'/'+appslug+'-supervisor.out', 'supervisor', ['supervisor', appslug, 'out'], 'json') }}
 {{ logship(appslug+'-supervisor.err', log_dir+'/'+appslug+'-supervisor.err', 'supervisor', ['supervisor', appslug, 'err'], 'json') }}
 {% endif %}
