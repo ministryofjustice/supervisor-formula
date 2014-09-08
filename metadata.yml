@@ -1,3 +1,6 @@
 dependencies:
 - git@github.com:ministryofjustice/python-formula.git
 - git@github.com:ministryofjustice/bootstrap-formula.git
+
+entry:
+ - supervisor
