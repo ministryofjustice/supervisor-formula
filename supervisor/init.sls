@@ -50,6 +50,7 @@ supervisor-python:
     - directory
     - user: root
     - group: root
+    - clean: True
 
 
 /var/log/supervisor:
