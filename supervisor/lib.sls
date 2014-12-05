@@ -13,6 +13,13 @@ include:
                    log_dir=None,
                    working_dir=None,
                    supervise=False,
+                   autostart=None,
+                   autorestart=None,
+                   startsecs=None,
+                   startretries=None,
+                   exitcodes=None,
+                   stopsignal=None,
+                   stopwaitsecs=None,
                    logship=False) %}
 
 # user supervise flag when service is deployed through salt (i.e. generic service), no separate deploy step
@@ -30,6 +37,7 @@ include:
     - group: root
     - mode: 644
     - template: jinja
+    - makedirs: True
     - context:
       appslug: {{appslug}}
       user: {{user}}
@@ -37,12 +45,20 @@ include:
       args: {{args}}
       working_dir: {{working_dir}}
       log_dir: {{log_dir}}
+      autostart: {{autostart}}
+      autorestart: {{autostart}}
+      startsecs: {{startsecs}}
+      startretries: {{startretries}}
+      exitcodes: {{exitcodes}}
+      stopsignal: {{stopsignal}}
+      stopwaitsecs: {{stopwaitsecs}}
     - require:
-      - file: /etc/supervisor.d
       - file: {{log_dir}}
 {%- if user != 'root' %}
       - user: {{user}}
 {%- endif %}
+    - require_in:
+      - file: /etc/supervisor.d
     - watch_in:
       - service: supervisord
 
