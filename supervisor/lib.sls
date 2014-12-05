@@ -37,6 +37,7 @@ include:
     - group: root
     - mode: 644
     - template: jinja
+    - makedirs: True
     - context:
       appslug: {{appslug}}
       user: {{user}}
@@ -52,11 +53,12 @@ include:
       stopsignal: {{stopsignal}}
       stopwaitsecs: {{stopwaitsecs}}
     - require:
-      - file: /etc/supervisor.d
       - file: {{log_dir}}
 {%- if user != 'root' %}
       - user: {{user}}
 {%- endif %}
+    - require_in:
+      - file: /etc/supervisor.d
     - watch_in:
       - service: supervisord
 
