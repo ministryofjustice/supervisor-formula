@@ -46,7 +46,7 @@ include:
       working_dir: {{working_dir}}
       log_dir: {{log_dir}}
       autostart: {{autostart}}
-      autorestart: {{autostart}}
+      autorestart: {{autorestart}}
       startsecs: {{startsecs}}
       startretries: {{startretries}}
       exitcodes: {{exitcodes}}
