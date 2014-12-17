@@ -1,4 +1,4 @@
-CURRENT
+v1.1.0
 -------
 
 * Allow setting of core per-service settings via lib function.
