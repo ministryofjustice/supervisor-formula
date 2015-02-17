@@ -25,8 +25,8 @@ include:
 # user supervise flag when service is deployed through salt (i.e. generic service), no separate deploy step
 
 {% set user = user or appslug %}
-{% set working_dir = working_dir or ("/srv/" + user) %}
-{% set log_dir = log_dir or ("/var/log/" + user) %}
+{% set working_dir = working_dir or ("/srv/" + appslug) %}
+{% set log_dir = log_dir or ("/var/log/" + appslug) %}
 
 
 /etc/supervisor.d/{{appslug}}.conf:
