@@ -50,8 +50,11 @@ supervisor-python:
     - directory
     - user: root
     - group: root
+{% if salt['pillar.get']('supervisor:dotdirclean:disabled', True) %}
+    - clean: False
+{% else %}
     - clean: True
-
+{% endif %}
 
 /var/log/supervisor:
   file:
