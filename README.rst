@@ -17,7 +17,7 @@ include:
 pillar config flags
 -------------------
 
-supervisor:dotdirclean:disabled - if True, avoids cleanup of the /etc/supervisor.d/ folder.
+supervisor:dotdirclean - if False, avoids cleanup of the /etc/supervisor.d/ folder.
 
 available macros
 ----------------
