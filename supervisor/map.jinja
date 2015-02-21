@@ -1,0 +1,6 @@
+{% set supervisor = salt['grains.filter_by']({
+    'default': {
+      'dotdirclean': True,
+    }
+}, grain='osfinger', merge=salt['pillar.get']('supervisor',{})) %}
+

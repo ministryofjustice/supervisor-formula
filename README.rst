@@ -14,6 +14,11 @@ include:
   - supervisor.logship
 
 
+pillar config flags
+-------------------
+
+supervisor:dotdirclean - if False, avoids cleanup of the /etc/supervisor.d/ folder.
+
 available macros
 ----------------
 {% macro supervise(

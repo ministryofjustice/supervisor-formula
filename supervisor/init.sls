@@ -1,3 +1,5 @@
+{% from "supervisor/map.jinja" import supervisor with context %}
+
 include:
   - bootstrap.groups
   - python
@@ -44,14 +46,12 @@ supervisor-python:
     - watch:
         - pip: supervisor-python
 
-
 /etc/supervisor.d:
   file:
     - directory
     - user: root
     - group: root
-    - clean: True
-
+    - clean: {{ supervisor.dotdirclean }}
 
 /var/log/supervisor:
   file:
